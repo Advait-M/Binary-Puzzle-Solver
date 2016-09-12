@@ -1,3 +1,4 @@
+import math
 rows = 8
 grid = []
 # Function to calculate length of a line segment.
@@ -12,6 +13,12 @@ def slope(x1, y1, x2, y2):
         m = "undefined"
     return m
 
+def switch(x):
+    return {
+        "0": "1",
+        "1": "0",
+    }[x]
+
 def checkSolved(grid, rows, columns):
     for m in range(0, rows):
         total0s = 0
@@ -23,13 +30,22 @@ def checkSolved(grid, rows, columns):
                 total1s += 1
         if not total0s == total1s == 4:
             return False
+    for y in range(0, rows):
+        for x in range(0, columns):
+            try: 
+                if grid[y][x] == grid[y+1][x] == grid[y+2][x]:
+                    return False
+            except IndexError:
+                pass
+            try:
+                if grid[y][x] == grid[y][x+1] == grid[y][x+2]:
+                    return False
+            except IndexError:
+                pass
+                    
     return True
 
-def switch(x):
-    return {
-        "0": "1",
-        "1": "0",
-    }[x]
+
 
 for i in range(0, rows):
     temp = list(input())
