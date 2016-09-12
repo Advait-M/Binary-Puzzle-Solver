@@ -73,5 +73,3 @@ for i in range(0, 50):
 print(curGrid)
 print("c", checkSolved(curGrid, rows, columns))
 print()
-            
-                
