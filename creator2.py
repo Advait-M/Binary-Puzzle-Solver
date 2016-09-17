@@ -54,7 +54,8 @@ def checkSolved(grid, rows, columns):
 def solve(grid, rows, columns):
     curGrid = grid
     actualOrientation = True
-    for i in range(0, 50):
+    lastFour = []
+    while True:
         curGrid = list(zip(*curGrid))
         actualOrientation = not actualOrientation
         for y in range(0, rows):
@@ -86,9 +87,28 @@ def solve(grid, rows, columns):
                         curGrid[y+1][x] = opp
                     if x < rows-2 and curGrid[y][x+1] == " " and curGrid[y][x] == curGrid[y][x+2]:
                         curGrid[y][x+1] = opp
+        if len(lastFour) >= 4:
+            lastFour.insert(0, curGrid)
+            lastFour = lastFour[0:4]
+        else:
+            lastFour.append(curGrid)
+        breakNow = False
+##        print(curGrid)
+        try: 
+            if lastFour[0] == lastFour[2] and lastFour[1] == lastFour[3]:
+                breakNow = True
+        except IndexError:
+            pass
+        if breakNow:
+            break
 ##    print(curGrid)                   
 ##    print("c", checkSolved(curGrid, rows, columns))
 ##    print()
+    if not actualOrientation:
+        curGrid = list(zip(*curGrid))
+        actualOrientation = not actualOrientation
+        for y in range(0, rows):
+            curGrid[y] = list(curGrid[y])
     return(curGrid)
 
 def checkValid(grid, complete, rows, columns):
