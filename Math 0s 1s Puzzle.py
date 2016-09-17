@@ -1,6 +1,6 @@
 import math
 rows = 8
-grid = []
+grid = [[' ', ' ', ' ', ' ', ' ', ' ', ' ', '1'], [' ', ' ', ' ', '0', ' ', ' ', '1', ' '], [' ', '0', '0', ' ', ' ', ' ', '1', '1'], [' ', ' ', ' ', ' ', ' ', '1', ' ', ' '], ['0', ' ', ' ', ' ', ' ', ' ', ' ', ' '], [' ', ' ', '1', '1', ' ', '1', '1', ' '], [' ', ' ', ' ', '0', ' ', ' ', ' ', '1'], [' ', ' ', '1', ' ', ' ', '0', ' ', ' ']]
 # Function to calculate length of a line segment.
 def length(x1, y1, x2, y2):
     l = math.sqrt(((x2 - x1) ** 2) + ((y2 - y1) ** 2))
@@ -52,13 +52,13 @@ def checkSolved(grid, rows, columns):
     return True
 
 
-
-for i in range(0, rows):
-    temp = list(input())
-    grid.append(temp)
-    columns = len(temp)
-
+##for i in range(0, rows):
+##    temp = list(input())
+##    grid.append(temp)
+##    columns = len(temp)
+columns = 8
 curGrid = grid
+print(grid)
 actualOrientation = True
 lastFour = []
 while True:
