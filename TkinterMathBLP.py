@@ -1,11 +1,29 @@
 from tkinter import*
 root=Tk()
-s = Frame(root,height=800, width=800)
-s.grid()
+
+m1 = PanedWindow(height=640, width=800)
+m1.grid()
+
+s = Frame(m1, bg="light grey")
+m1.add(s)
+
+controlPanel = Frame (m1)
+m1.add(controlPanel)
+x=[[' ', ' ', '0', ' ', ' ', ' ', ' ', '0'], [' ', ' ', ' ', ' ', ' ', '0', '0', ' '], ['1', ' ', '1', '1', ' ', '1', ' ', ' '], [' ', ' ', ' ', ' ', '0', ' ', ' ', ' '], [' ', '0', ' ', ' ', ' ', ' ', ' ', '0'], [' ', '1', ' ', ' ', ' ', '1', ' ', ' '], [' ', ' ', ' ', ' ', '0', ' ', ' ', ' '], ['1', ' ', '0', ' ', '0', ' ', ' ', '0']]
+
+
 buttonIDList = []
-def submit():
-    top = Toplevel()
-    Button(top,text="Send", command= send).pack()
+
+Button(controlPanel,text="Export",font="Times 24" ,command= lambda:export()).pack()
+Button(controlPanel,text="Import",font="Times 24" ,command= lambda:imp(x)).pack()
+
+def imp(array):
+    indent=0
+    for row in range(len(array)):
+        for i in range(len(array[row])):
+            buttonIDList[indent].config(text=array[row][i])
+            indent+=1
+            
 
 def updateButton(objID):
     num = objID.cget("text")
@@ -33,16 +51,16 @@ def makeButton(row,col):
     buttonIDList.append(buttonID)
     buttonID.grid()
 
-def makeButtonMatrix():
+def main():
     for row in range(8):
         for column in range(8):
             makeButton(row,column)
 
-def send():
+def export():
     count = 0
     bigList=[]
     tempList=[]
-    print(len(buttonIDList))
+##    print(len(buttonIDList))
     for i in buttonIDList:
         
         if count % 8==0 and count !=0:
@@ -50,10 +68,12 @@ def send():
             tempList = []
         tempList.append(i.cget("text"))
         count+=1
-        print(count, tempList)
+##        print(count, tempList)
     bigList.append(tempList)
-    print(count, bigList)
+    print(bigList)
+    return bigList
+
+if __name__ == "__main__":
+    main()
         
     
-makeButtonMatrix()
-submit()
