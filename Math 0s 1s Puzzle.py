@@ -42,7 +42,13 @@ def checkSolved(grid, rows, columns):
                     return False
             except IndexError:
                 pass
-                    
+    if len(grid) != len([list(t) for t in set(tuple(element) for element in grid)]):
+        return False
+    curGrid = list(zip(*grid))
+    for y in range(0, rows):
+        curGrid[y] = list(curGrid[y])
+    if len(curGrid) != len([list(t) for t in set(tuple(element) for element in curGrid)]):
+        return False
     return True
 
 
@@ -51,6 +57,7 @@ for i in range(0, rows):
     temp = list(input())
     grid.append(temp)
     columns = len(temp)
+
 curGrid = grid
 actualOrientation = True
 for i in range(0, 50):
