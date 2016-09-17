@@ -1,3 +1,4 @@
+# To understand recursion, see the bottom of this file 
 import math
 import random
 
@@ -5,6 +6,7 @@ import random
 def length(x1, y1, x2, y2):
     l = math.sqrt(((x2 - x1) ** 2) + ((y2 - y1) ** 2))
     return l
+
 # Function to calculate slope of a line segment
 def slope(x1, y1, x2, y2):
     try:
@@ -93,7 +95,6 @@ def solve(grid, rows, columns):
         else:
             lastFour.append(curGrid)
         breakNow = False
-##        print(curGrid)
         try: 
             if lastFour[0] == lastFour[2] and lastFour[1] == lastFour[3]:
                 breakNow = True
@@ -101,9 +102,6 @@ def solve(grid, rows, columns):
             pass
         if breakNow:
             break
-##    print(curGrid)                   
-##    print("c", checkSolved(curGrid, rows, columns))
-##    print()
     if not actualOrientation:
         curGrid = list(zip(*curGrid))
         actualOrientation = not actualOrientation
@@ -213,3 +211,5 @@ def createGrid(rows, columns):
         return grid
         
 print(createGrid(8, 8))
+
+# To understand recursion, see the top of this file
