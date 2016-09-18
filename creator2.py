@@ -209,9 +209,9 @@ def createGrid(rows, columns):
     else:
         print(solvedGrid, "\n")
         return grid
-def main():
-    print(createGrid(8, 8))
+def main(rows, columns):
+    return createGrid(rows, columns)
 if __name__ == "__main__":
-    main()
+    main(8, 8)
 
 # To understand recursion, see the top of this file

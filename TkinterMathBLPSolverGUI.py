@@ -1,5 +1,6 @@
 from tkinter import*
 import BinarySolver as solver
+import creator2 as creator
 root=Tk()
 
 m1 = PanedWindow(height=640, width=800)
@@ -18,9 +19,11 @@ buttonIDList = []
 Button(controlPanel,text="Solve",font="Times 24" ,command= lambda:export()).pack()
 Button(controlPanel,text="Import",font="Times 24" ,command= lambda:imp(x)).pack()
 Button(controlPanel,text="Clear",font="Times 24" ,command= lambda:Clear(buttonIDList)).pack()
+Button(controlPanel, text="Create",font="Times 24" ,command= lambda:create()).pack() 
 
-
-
+def create():
+    newGrid = creator.main(8, 8)
+    imp(newGrid)
 def Clear(buttonID):
     for i in buttonID:
         i.config(text=" ")
