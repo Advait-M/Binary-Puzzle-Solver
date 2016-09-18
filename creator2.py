@@ -179,6 +179,9 @@ def createGrid(rows, columns):
     doAgain = False
     while not checkSolved(solvedGrid, rows, columns):
         doneAdd = False
+        ins = 0
+        done = True
+        loop = False
         while not doneAdd:
             gridB = grid[:]
             newx = random.randint(0, columns-1)
@@ -192,16 +195,20 @@ def createGrid(rows, columns):
                     solvedGrid = solvedGridB
                     grid = gridB
                     doneAdd = True
-##            print("in")
+            ins += 1
+            if ins > rows*columns:
+                loop = True
+            if loop:
+                break
 ##        print(grid)
 ##        print(solvedGrid)
 ##        print(checkSolved(solvedGrid, rows, columns))
-        done = True
+        #print(solvedGrid)
         for m in solvedGrid:
             for n in m:
                 if n == " ":
                     done = False
-        if done and not checkSolved(solvedGrid, rows, columns):
+        if (done or loop) and not checkSolved(solvedGrid, rows, columns):
             doAgain = True
             break
     if doAgain:
