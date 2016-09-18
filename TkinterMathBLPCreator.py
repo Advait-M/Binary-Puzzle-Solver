@@ -1,4 +1,5 @@
 from tkinter import*
+import BinarySolver as solver
 root=Tk()
 
 m1 = PanedWindow(height=640, width=800)
@@ -14,9 +15,16 @@ x=[[' ', ' ', '0', ' ', ' ', ' ', ' ', '0'], [' ', ' ', ' ', ' ', ' ', '0', '0',
 
 buttonIDList = []
 
-Button(controlPanel,text="Export",font="Times 24" ,command= lambda:export()).pack()
+Button(controlPanel,text="Solve",font="Times 24" ,command= lambda:export()).pack()
 Button(controlPanel,text="Import",font="Times 24" ,command= lambda:imp(x)).pack()
+Button(controlPanel,text="Clear",font="Times 24" ,command= lambda:Clear(buttonIDList)).pack()
 
+
+
+def Clear(buttonID):
+    for i in buttonID:
+        i.config(text=" ")
+        
 def imp(array):
     indent=0
     for row in range(len(array)):
@@ -70,10 +78,11 @@ def export():
         count+=1
 ##        print(count, tempList)
     bigList.append(tempList)
-    print(bigList)
-    return bigList
+##    print(bigList)
+    solved = solver.main(bigList)
+    imp(solved)
 
 if __name__ == "__main__":
     main()
-        
+    
     
