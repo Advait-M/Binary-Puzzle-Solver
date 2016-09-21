@@ -1,24 +1,9 @@
-import math
-
-# Function to calculate length of a line segment.
-def length(x1, y1, x2, y2):
-    l = math.sqrt(((x2 - x1) ** 2) + ((y2 - y1) ** 2))
-    return l
-# Function to calculate slope of a line segment
-def slope(x1, y1, x2, y2):
-    try:
-        m = (y2 - y1) / (x2 - x1)
-    except ZeroDivisionError:
-        m = "undefined"
-    return m
-
 def switch(x):
     return {
         "0": "1",
         "1": "0",
     }[x]
-
-def checkSolved(grid, rows, columns):
+def checkValid(grid, rows, columns):
     for m in range(0, rows):
         total0s = 0
         total1s = 0
@@ -27,18 +12,20 @@ def checkSolved(grid, rows, columns):
                 total0s += 1
             elif grid[m][n] == "1":
                 total1s += 1
-        if not total0s == total1s == 4:
+        if total0s > 4 or total1s > 4:
             return False
     for y in range(0, rows):
         for x in range(0, columns):
             try: 
                 if grid[y][x] == grid[y+1][x] == grid[y+2][x]:
-                    return False
+                    if grid[y][x] != " ":
+                        return False
             except IndexError:
                 pass
             try:
                 if grid[y][x] == grid[y][x+1] == grid[y][x+2]:
-                    return False
+                    if grid[y][x] != " ":
+                        return False
             except IndexError:
                 pass
     if len(grid) != len([list(t) for t in set(tuple(element) for element in grid)]):
@@ -48,7 +35,72 @@ def checkSolved(grid, rows, columns):
         curGrid[y] = list(curGrid[y])
     if len(curGrid) != len([list(t) for t in set(tuple(element) for element in curGrid)]):
         return False
+    for m in range(0, columns):
+        total0s = 0
+        total1s = 0
+        for n in range(0, rows):
+            if grid[m][n] == "0":
+                total0s += 1
+            elif grid[m][n] == "1":
+                total1s += 1
+        if total0s > 4 or total1s > 4:
+            return False
     return True
+    
+def checkSolved(grid, rows, columns, complete = True):
+    for m in range(0, rows):
+        total0s = 0
+        total1s = 0
+        for n in range(0, columns):
+            if grid[m][n] == "0":
+                total0s += 1
+            elif grid[m][n] == "1":
+                total1s += 1
+        if complete:
+            if not total0s == total1s == 4:
+                return False
+        if not complete:
+            if total0s > 4:
+                return False
+            if total1s > 4:
+                return False
+    for y in range(0, rows):
+        for x in range(0, columns):
+            try: 
+                if grid[y][x] == grid[y+1][x] == grid[y+2][x]:
+                    if grid[y][x] != " " and not complete:
+                        return False
+                    else:
+                        return False
+            except IndexError:
+                pass
+            try:
+                if grid[y][x] == grid[y][x+1] == grid[y][x+2]:
+                    if grid[y][x] != " " and not complete:
+                        return False
+                    else:
+                        return False
+            except IndexError:
+                pass
+    if len(grid) != len([list(t) for t in set(tuple(element) for element in grid)]):
+        return False
+    curGrid = list(zip(*grid))
+    for y in range(0, rows):
+        curGrid[y] = list(curGrid[y])
+    if len(curGrid) != len([list(t) for t in set(tuple(element) for element in curGrid)]):
+        return False
+    for m in range(0, columns):
+        total0s = 0
+        total1s = 0
+        for n in range(0, rows):
+            if grid[m][n] == "0":
+                total0s += 1
+            elif grid[m][n] == "1":
+                total1s += 1
+        if total0s > 4 or total1s > 4:
+            return False
+    return True
+
 def main(grid):
     rows = 8
 ##    grid = [[' ', ' ', ' ', ' ', ' ', ' ', ' ', '1'], [' ', ' ', ' ', '0', ' ', ' ', '1', ' '], [' ', '0', '0', ' ', ' ', ' ', '1', '1'], [' ', ' ', ' ', ' ', ' ', '1', ' ', ' '], ['0', ' ', ' ', ' ', ' ', ' ', ' ', ' '], [' ', ' ', '1', '1', ' ', '1', '1', ' '], [' ', ' ', ' ', '0', ' ', ' ', ' ', '1'], [' ', ' ', '1', ' ', ' ', '0', ' ', ' ']]
