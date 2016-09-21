@@ -1,62 +1,6 @@
 # To understand recursion, see the bottom of this file 
 import random
 import BinarySolver as binsol
-
-def solve(grid, rows, columns):
-    curGrid = grid
-    actualOrientation = True
-    lastFour = []
-    while True:
-        curGrid = list(zip(*curGrid))
-        actualOrientation = not actualOrientation
-        for y in range(0, rows):
-            curGrid[y] = list(curGrid[y])
-        for y in range(0, rows):
-            if curGrid[y].count("0") == 4:
-                for x in range(0, columns):
-                    if curGrid[y][x] == " ":
-                        curGrid[y][x] = "1"
-                        
-            if curGrid[y].count("1") == 4:
-                for x in range(0, columns):
-                    if curGrid[y][x] == " ":
-                        curGrid[y][x] = "0"
-            for x in range(0, columns):
-                if curGrid[y][x] != " ":
-                    opp = binsol.switch(curGrid[y][x])
-                    if x > 1 and curGrid[y][x] == curGrid[y][x-1]:
-                        if x >= 2 and grid[y][x-2] == " ":
-                            curGrid[y][x-2] = opp
-                        if x < rows-1 and curGrid[y][x+1] == " ":
-                            curGrid[y][x+1] = opp
-                    if y > 1 and curGrid[y][x] == curGrid[y-1][x]:
-                        if y >= 2 and curGrid[y-2][x] == " ":
-                            curGrid[y-2][x] = opp
-                        if y < columns-1 and curGrid[y+1][x] == " ":
-                            curGrid[y+1][x] = opp
-                    if y < columns-2 and curGrid[y+1][x] == " " and curGrid[y][x] == curGrid[y+2][x]:
-                        curGrid[y+1][x] = opp
-                    if x < rows-2 and curGrid[y][x+1] == " " and curGrid[y][x] == curGrid[y][x+2]:
-                        curGrid[y][x+1] = opp
-        if len(lastFour) >= 4:
-            lastFour.insert(0, curGrid)
-            lastFour = lastFour[0:4]
-        else:
-            lastFour.append(curGrid)
-        breakNow = False
-        try: 
-            if lastFour[0] == lastFour[2] and lastFour[1] == lastFour[3]:
-                breakNow = True
-        except IndexError:
-            pass
-        if breakNow:
-            break
-    if not actualOrientation:
-        curGrid = list(zip(*curGrid))
-        actualOrientation = not actualOrientation
-        for y in range(0, rows):
-            curGrid[y] = list(curGrid[y])
-    return(curGrid)
     
 def createGrid(rows, columns):
     grid = []
@@ -77,7 +21,7 @@ def createGrid(rows, columns):
             if solvedGrid[newy][newx] == " ":
                 gridB[newy][newx] = random.choice(["0", "1"])
                 if binsol.checkValid(gridB, rows, columns):
-                    solvedGridB = solve(gridB, rows, columns)
+                    solvedGridB = binsol.solve(gridB, rows, columns)
 ##                    print("asdasd")
 ##                    print(solvedGridB)
                     solvedGrid = solvedGridB
