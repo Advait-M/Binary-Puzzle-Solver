@@ -50,7 +50,7 @@ def checkSolved(grid, rows, columns):
 
 
 a = list(perm_unique([1,1,1,1,0,0,0,0]))
-print(a)
+##print(a)
 columns = 8
 for m in range(0, len(a)):
     a[m] = list(a[m])
@@ -67,10 +67,10 @@ for i in range(len(a)-1, -1, -1):
             pass
 print()
 print(a)
-f = open("output.txt", "w")
-b = list(itertools.permutations(a,1))
-print()
-print(b)
-f.write(b)
-f.close()
-print("done")
+##f = open("output.txt", "w")
+##b = list(itertools.permutations(a,1))
+##print()
+##print(b)
+##f.write(b)
+##f.close()
+##print("done")

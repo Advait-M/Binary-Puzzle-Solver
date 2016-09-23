@@ -102,6 +102,7 @@ def checkSolved(grid, rows, columns, complete = True):
     return True
 
 def solve(grid, rows, columns):
+    possibleRows = [['1', '1', '0', '1', '0', '1', '0', '0'], ['1', '0', '1', '1', '0', '1', '0', '0'], ['1', '1', '0', '0', '1', '1', '0', '0'], ['1', '0', '1', '0', '1', '1', '0', '0'], ['0', '1', '1', '0', '1', '1', '0', '0'], ['1', '1', '0', '1', '0', '0', '1', '0'], ['1', '0', '1', '1', '0', '0', '1', '0'], ['1', '1', '0', '0', '1', '0', '1', '0'], ['1', '0', '1', '0', '1', '0', '1', '0'], ['0', '1', '1', '0', '1', '0', '1', '0'], ['1', '0', '0', '1', '1', '0', '1', '0'], ['0', '1', '0', '1', '1', '0', '1', '0'], ['1', '0', '1', '0', '0', '1', '1', '0'], ['0', '1', '1', '0', '0', '1', '1', '0'], ['1', '0', '0', '1', '0', '1', '1', '0'], ['0', '1', '0', '1', '0', '1', '1', '0'], ['0', '0', '1', '1', '0', '1', '1', '0'], ['1', '1', '0', '0', '1', '0', '0', '1'], ['1', '0', '1', '0', '1', '0', '0', '1'], ['0', '1', '1', '0', '1', '0', '0', '1'], ['1', '0', '0', '1', '1', '0', '0', '1'], ['0', '1', '0', '1', '1', '0', '0', '1'], ['1', '0', '1', '0', '0', '1', '0', '1'], ['0', '1', '1', '0', '0', '1', '0', '1'], ['1', '0', '0', '1', '0', '1', '0', '1'], ['0', '1', '0', '1', '0', '1', '0', '1'], ['0', '0', '1', '1', '0', '1', '0', '1'], ['0', '1', '0', '0', '1', '1', '0', '1'], ['0', '0', '1', '0', '1', '1', '0', '1'], ['1', '0', '0', '1', '0', '0', '1', '1'], ['0', '1', '0', '1', '0', '0', '1', '1'], ['0', '0', '1', '1', '0', '0', '1', '1'], ['0', '1', '0', '0', '1', '0', '1', '1'], ['0', '0', '1', '0', '1', '0', '1', '1']]
     curGrid = grid
     actualOrientation = True
     lastFour = []
@@ -137,6 +138,36 @@ def solve(grid, rows, columns):
                         curGrid[y+1][x] = opp
                     if x < rows-2 and curGrid[y][x+1] == " " and curGrid[y][x] == curGrid[y][x+2]:
                         curGrid[y][x+1] = opp
+            for y in range(0, rows):
+                possRowsTemp = possibleRows[:]
+                toDel = []
+                for n in range(len(possRowsTemp)-1, -1, -1):
+                    for x in range(0, columns):
+##                        print("l", len(possRowsTemp))
+##                        print(n)
+                        if curGrid[y][x] != " " and curGrid[y][x] != possRowsTemp[n][x]:
+                            toDel.append(n)
+                toDel = list(set(toDel))
+                toDel.sort()
+                for r in range(len(toDel)-1, -1, -1):
+                    try:
+                        del possRowsTemp[toDel[r]]
+                    except:
+                        print(possRowsTemp)
+                        print("del", toDel)
+                        print("r", toDel[r])
+                if len(possRowsTemp) == 0:
+                    break
+                tempRow = possRowsTemp[0]
+                for p in range(0, len(possRowsTemp)):
+                    for e in range(0, columns):
+                        if possRowsTemp[p][e] != tempRow[e]:
+                            tempRow[e] = " "
+##                print("i")
+                if tempRow != curGrid[y]:
+                    print(tempRow)
+                curGrid[y] = tempRow
+                
         if len(lastFour) >= 4:
             lastFour.insert(0, curGrid)
             lastFour = lastFour[0:4]
