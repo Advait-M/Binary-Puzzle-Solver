@@ -3,6 +3,7 @@ def switch(x):
         "0": "1",
         "1": "0",
     }[x]
+
 def checkValid(grid, rows, columns):
     for m in range(0, rows):
         total0s = 0
@@ -150,12 +151,8 @@ def solve(grid, rows, columns):
                 toDel = list(set(toDel))
                 toDel.sort()
                 for r in range(len(toDel)-1, -1, -1):
-                    try:
-                        del possRowsTemp[toDel[r]]
-                    except:
-                        print(possRowsTemp)
-                        print("del", toDel)
-                        print("r", toDel[r])
+                    del possRowsTemp[toDel[r]]
+
                 if len(possRowsTemp) == 0:
                     break
                 tempRow = possRowsTemp[0]
@@ -164,8 +161,8 @@ def solve(grid, rows, columns):
                         if possRowsTemp[p][e] != tempRow[e]:
                             tempRow[e] = " "
 ##                print("i")
-                if tempRow != curGrid[y]:
-                    print(tempRow)
+                # if tempRow != curGrid[y]:
+                #     print(tempRow)
                 curGrid[y] = tempRow
                 
         if len(lastFour) >= 4:

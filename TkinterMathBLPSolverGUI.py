@@ -24,6 +24,7 @@ Button(controlPanel, text="Create",font="Times 24" ,command= lambda:create()).pa
 def create():
     newGrid = creator.main(8, 8)
     imp(newGrid)
+
 def Clear(buttonID):
     for i in buttonID:
         i.config(text=" ")
@@ -66,6 +67,7 @@ def main():
     for row in range(8):
         for column in range(8):
             makeButton(row,column)
+    root.mainloop()
 
 def export():
     count = 0
@@ -88,5 +90,3 @@ def export():
 
 if __name__ == "__main__":
     main()
-    
-    
